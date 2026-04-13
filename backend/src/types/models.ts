@@ -10,7 +10,6 @@ export interface Campaign {
   budget_usd: number;
   created_at: string;
 }
-
 export interface Event {
   id: number;
   campaign_id: number;
@@ -20,11 +19,9 @@ export interface Event {
   capacity: number;
   description: string;
 }
-
 export interface CampaignWithEvents extends Campaign {
   events: Event[];
 }
-
 export interface Submission {
   id: number;
   campaign_id: number;
@@ -34,8 +31,23 @@ export interface Submission {
   company: string;
   submitted_at: string;
 }
-
 export interface SeedData {
   campaigns: Campaign[];
   events: Event[];
+}
+export interface LandingSubmissionRequest {
+  firstName: string;
+  lastName: string;
+  email: string;
+  company: string;
+}
+export interface SubmissionWithCampaign {
+  id: number;
+  campaign_id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  company: string;
+  submitted_at: string;
+  campaign_name: string;
 }
