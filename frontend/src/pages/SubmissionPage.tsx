@@ -23,18 +23,15 @@ export default function SubmissionPage() {
         setLoading(false);
       }
     }
-
     loadSubmissions();
   }, []);
 
   function handleDownloadCsv() {
     window.open("http://localhost:4000/api/submissions/export", "_blank");
   }
-
   if (loading) {
     return <p>Loading submissions...</p>;
   }
-
   if (error) {
     return <p>Error: {error}</p>;
   }
@@ -42,7 +39,6 @@ export default function SubmissionPage() {
   return (
     <div style={{ padding: "1rem" }}>
       <h1>Submissions</h1>
-
       <button
         onClick={handleDownloadCsv}
         style={{
@@ -53,7 +49,6 @@ export default function SubmissionPage() {
       >
         Download CSV
       </button>
-
       {submissions.length === 0 ? (
         <p>No submissions found.</p>
       ) : (
@@ -64,7 +59,7 @@ export default function SubmissionPage() {
             border: "1px solid #ccc",
           }}
         >
-          <thead>
+            <thead>
             <tr>
               <th style={cellStyle}>Name</th>
               <th style={cellStyle}>Email</th>

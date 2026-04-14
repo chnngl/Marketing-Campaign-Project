@@ -51,3 +51,6 @@ export interface SubmissionWithCampaign {
   submitted_at: string;
   campaign_name: string;
 }
+export interface SendCampaignEmailRequest {
+  recipientEmail: string;
+}

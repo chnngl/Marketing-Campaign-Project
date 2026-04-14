@@ -30,3 +30,7 @@ export interface Submission {
   submitted_at: string;
   campaign_name: string;
 }
+export interface SendEmailResponse {
+  message: string;
+  previewUrl?: string;
+}

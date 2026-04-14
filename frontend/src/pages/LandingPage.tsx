@@ -12,22 +12,18 @@ interface LandingFormData {
 
 export default function LandingPage() {
   const { slug } = useParams<{ slug: string }>();
-
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [loading, setLoading] = useState(true);
   const [pageError, setPageError] = useState("");
-
   const [formData, setFormData] = useState<LandingFormData>({
     firstName: "",
     lastName: "",
     email: "",
     company: "",
   });
-
   const [submitMessage, setSubmitMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
   useEffect(() => {
     async function loadCampaign() {
       try {
@@ -49,7 +45,6 @@ export default function LandingPage() {
         setLoading(false);
       }
     }
-
     loadCampaign();
   }, [slug]);
 
@@ -65,16 +60,13 @@ export default function LandingPage() {
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-
     if (!slug) {
       setSubmitError("Missing campaign slug");
       return;
     }
-
     setSubmitting(true);
     setSubmitError("");
     setSubmitMessage("");
-
     try {
       const response = await apiFetch<{ message: string }>(
         `/landing/${slug}/submit`,
@@ -86,7 +78,6 @@ export default function LandingPage() {
           body: JSON.stringify(formData),
         }
       );
-
       setSubmitMessage(response.message);
       setFormData({
         firstName: "",
@@ -104,22 +95,20 @@ export default function LandingPage() {
       setSubmitting(false);
     }
   }
-
   if (loading) {
     return <p>Loading landing page...</p>;
   }
-
   if (pageError) {
     return <p>Error: {pageError}</p>;
   }
-
   if (!campaign) {
     return <p>Campaign not found.</p>;
   }
 
   return (
-    <div style={{ padding: "1rem", maxWidth: "700px", margin: "0 auto" }}>
-      <h1>{campaign.name}</h1>
+    <div style={{ padding: "2rem 1rem", maxWidth: "900px", margin: "0 auto" }}>
+      <h1 style={{ fontSize: "2.5rem", textAlign: "center", marginBottom: "1rem" }}>
+  {campaign.name}</h1>
       <p>{campaign.description}</p>
 
       <form
@@ -154,12 +143,10 @@ export default function LandingPage() {
           value={formData.company}
           onChange={handleChange}
         />
-
         <button type="submit" disabled={submitting}>
           {submitting ? "Submitting..." : "Submit"}
         </button>
       </form>
-
       {submitMessage && <p style={{ marginTop: "1rem" }}>{submitMessage}</p>}
       {submitError && <p style={{ marginTop: "1rem" }}>Error: {submitError}</p>}
     </div>
