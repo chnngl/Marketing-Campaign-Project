@@ -43,6 +43,7 @@ router.get("/export", (_req: Request, res: Response) => {
     submitted_at: string;
     campaign_name: string;
   }>;
+
   const csv = toCsv(submissions);
   res.setHeader("Content-Type", "text/csv; charset=utf-8");
   res.setHeader("Content-Disposition", 'attachment; filename="submissions.csv"');

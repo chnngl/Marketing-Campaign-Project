@@ -7,7 +7,7 @@ import SubmissionPage from './pages/SubmissionPage';
 function App() {
   return (
     <BrowserRouter>
-      <nav style = {{ padding:"1rem", display:"flex", gap:"1rem" }}>
+      <nav style = {{ padding:"1rem 2rem", display:"flex", gap:"1rem" }}>
         <Link to="/">Campaigns</Link>
         <Link to="/submissions">Submissions</Link>
       </nav>
