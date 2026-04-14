@@ -96,59 +96,65 @@ export default function LandingPage() {
     }
   }
   if (loading) {
-    return <p>Loading landing page...</p>;
+    return <p className="text-slate-600">Loading landing page...</p>;
   }
   if (pageError) {
-    return <p>Error: {pageError}</p>;
+    return <p className="text-red-600">Error: {pageError}</p>;
   }
   if (!campaign) {
-    return <p>Campaign not found.</p>;
+    return <p className="text-slate-600">Campaign not found.</p>;
   }
 
   return (
-    <div style={{ padding: "2rem 1rem", maxWidth: "900px", margin: "0 auto" }}>
-      <h1 style={{ fontSize: "2.5rem", textAlign: "center", marginBottom: "1rem" }}>
-  {campaign.name}</h1>
-      <p>{campaign.description}</p>
-
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: "grid",
-          gap: "0.75rem",
-          marginTop: "1.5rem",
-        }}
-      >
+    <div className="mx-auto max-w-3xl rounded-3xl border border-green-200 bg-white p-8 shadow-sm">
+      <h1 className="mb-4 text-4xl font-semibold leading-tight text-green-950">
+        {campaign.name}
+      </h1>
+      <p className="mb-6 leading-7 text-slate-700">{campaign.description}</p>
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <input
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none placeholder:text-slate-400 focus:border-green-500"
           name="firstName"
           placeholder="First Name"
           value={formData.firstName}
           onChange={handleChange}
         />
         <input
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none placeholder:text-slate-400 focus:border-green-500"
           name="lastName"
           placeholder="Last Name"
           value={formData.lastName}
           onChange={handleChange}
         />
         <input
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none placeholder:text-slate-400 focus:border-green-500"
           name="email"
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
         />
         <input
+          className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none placeholder:text-slate-400 focus:border-green-500"
           name="company"
           placeholder="Company"
           value={formData.company}
           onChange={handleChange}
         />
-        <button type="submit" disabled={submitting}>
+        <button
+          className="w-full rounded-xl bg-green-700 px-4 py-3 font-medium text-white transition hover:bg-green-800 disabled:opacity-50"
+          type="submit"
+          disabled={submitting}
+        >
           {submitting ? "Submitting..." : "Submit"}
         </button>
       </form>
-      {submitMessage && <p style={{ marginTop: "1rem" }}>{submitMessage}</p>}
-      {submitError && <p style={{ marginTop: "1rem" }}>Error: {submitError}</p>}
+
+      {submitMessage && (
+        <p className="mt-4 text-sm text-green-700">{submitMessage}</p>
+      )}
+      {submitError && (
+        <p className="mt-4 text-sm text-red-600">Error: {submitError}</p>
+      )}
     </div>
   );
 }

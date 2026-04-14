@@ -30,65 +30,76 @@ export default function SubmissionPage() {
     window.open("http://localhost:4000/api/submissions/export", "_blank");
   }
   if (loading) {
-    return <p>Loading submissions...</p>;
+    return <p className="text-slate-600">Loading submissions...</p>;
   }
+
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p className="text-red-600">Error: {error}</p>;
   }
 
   return (
-    <div style={{ padding: "1rem" }}>
-      <h1>Submissions</h1>
-      <button
-        onClick={handleDownloadCsv}
-        style={{
-          marginBottom: "1rem",
-          padding: "0.6rem 1rem",
-          cursor: "pointer",
-        }}
-      >
-        Download CSV
-      </button>
-      {submissions.length === 0 ? (
-        <p>No submissions found.</p>
-      ) : (
-        <table
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            border: "1px solid #ccc",
-          }}
+    <div>
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <h1 className="text-5xl font-semibold tracking-tight text-green-950">
+          Submissions
+        </h1>
+
+        <button
+          className="rounded-xl bg-green-700 px-4 py-2 font-medium text-white transition hover:bg-green-800"
+          onClick={handleDownloadCsv}
         >
-            <thead>
-            <tr>
-              <th style={cellStyle}>Name</th>
-              <th style={cellStyle}>Email</th>
-              <th style={cellStyle}>Company</th>
-              <th style={cellStyle}>Campaign</th>
-              <th style={cellStyle}>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {submissions.map((submission) => (
-              <tr key={submission.id}>
-                <td style={cellStyle}>
-                  {submission.first_name} {submission.last_name}
-                </td>
-                <td style={cellStyle}>{submission.email}</td>
-                <td style={cellStyle}>{submission.company}</td>
-                <td style={cellStyle}>{submission.campaign_name}</td>
-                <td style={cellStyle}>{formatDate(submission.submitted_at)}</td>
+          Download CSV
+        </button>
+      </div>
+
+      {submissions.length === 0 ? (
+        <p className="text-slate-600">No submissions found.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-2xl border border-green-200 bg-white shadow-sm">
+          <table className="min-w-full border-collapse">
+            <thead className="bg-green-50">
+              <tr>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-green-950">
+                  Name
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-green-950">
+                  Email
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-green-950">
+                  Company
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-green-950">
+                  Campaign
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-green-950">
+                  Date
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {submissions.map((submission) => (
+                <tr key={submission.id} className="border-t border-green-100">
+                  <td className="px-4 py-3 text-sm text-slate-700">
+                    {submission.first_name} {submission.last_name}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-700">
+                    {submission.email}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-700">
+                    {submission.company}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-700">
+                    {submission.campaign_name}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-700">
+                    {formatDate(submission.submitted_at)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
 }
-
-const cellStyle: React.CSSProperties = {
-  border: "1px solid #ccc",
-  padding: "0.75rem",
-  textAlign: "left",
-};

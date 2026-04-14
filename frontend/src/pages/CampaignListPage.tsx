@@ -5,11 +5,10 @@ import type { Campaign } from "../types/models";
 
 export default function CampaignListPage() {
     console.log("CampaignListPage rendered");
-  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
+    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    useEffect(() => {
     console.log("useEffect started");
     async function loadCampaigns() {
         console.log("loadCampaigns called");
@@ -28,28 +27,29 @@ export default function CampaignListPage() {
         setLoading(false);
       }
     }
-
     loadCampaigns();
   }, []);
 
   if (loading) {
-    return <p>Loading campaigns...</p>;
+    return <p className="text-slate-600">Loading campaigns...</p>;
   }
-
   if (error) {
-    return <p>Error: {error}</p>;
+    return <p className="text-red-600">Error: {error}</p>;
   }
-
   return (
-    <div style={{ padding: "1rem" }}>
-      <h1>Campaigns</h1>
-      {campaigns.length === 0 ? (
-        <p>No campaigns found.</p>
-      ) : (
-        campaigns.map((campaign) => (
-          <CampaignCard key={campaign.id} campaign={campaign} />
-        ))
-      )}
+    <div>
+      <h1 className="mb-8 text-5xl font-semibold tracking-tight text-green-950">
+        Campaigns
+      </h1>
+      <div className="space-y-6">
+        {campaigns.length === 0 ? (
+          <p className="text-slate-600">No campaigns found.</p>
+        ) : (
+          campaigns.map((campaign) => (
+            <CampaignCard key={campaign.id} campaign={campaign} />
+          ))
+        )}
+      </div>
     </div>
   );
 }

@@ -52,7 +52,6 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
     setSendError("");
     setPreviewUrl("");
   }
-
   function closeModal() {
     setShowSendModal(false);
     setRecipientEmail("");
@@ -60,162 +59,134 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
     setSendError("");
     setPreviewUrl("");
   }
-
   return (
     <>
-    <div
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "8px",
-        padding: "1rem",
-        marginBottom: "1rem",
-      }}
-    >
-      <h2 style={{ marginTop: 0 }}>{campaign.name}</h2>
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-        gap: "1.5rem",
-        flexWrap: "wrap",
-        marginBottom: "1rem",
-        textAlign: "center",
-        }}
-        >
-            <span>
-                <strong>Status:</strong> {campaign.status}
-            </span>
-            <span>
-                <strong>Platform:</strong> {campaign.platform}
-            </span>
-            <span>
-            <strong>Created:</strong> {formatDate(campaign.created_at)}
-            </span>
+      <article className="rounded-2xl border border-green-200 bg-white p-6 shadow-sm">
+        <h2 className="mb-4 text-3xl font-semibold text-green-950">
+          {campaign.name}
+        </h2>
+
+        <div className="mb-5 flex flex-wrap gap-4 text-sm text-slate-600">
+          <span>
+            <span className="font-semibold text-slate-900">Status:</span>{" "}
+            {campaign.status}
+          </span>
+          <span>
+            <span className="font-semibold text-slate-900">Platform:</span>{" "}
+            {campaign.platform}
+          </span>
+          <span>
+            <span className="font-semibold text-slate-900">Created:</span>{" "}
+            {formatDate(campaign.created_at)}
+          </span>
         </div>
-        <p style={{maxWidth: "1100px", margin: "1rem 5rem 1rem", textAlign: "justify", lineHeight: 1.6,}}>
-            {campaign.description}
+
+        <p className="mb-6 max-w-4xl leading-7 text-slate-700">
+          {campaign.description}
         </p>
-      <div>
-        <strong>Events:</strong>
+
+        <div className="mb-3 text-sm font-semibold uppercase tracking-wide text-green-900">
+          Events
+        </div>
+
         {campaign.events.length === 0 ? (
-          <p>No associated events.</p>
+          <p className="mb-6 text-slate-600">No associated events.</p>
         ) : (
-          <div style={{ marginTop: "0.5rem" }}>
+          <div className="mb-6 space-y-3">
             {campaign.events.map((event, index) => (
-                <p key={event.id} style={{ margin: "0.35rem 0" }}>
-                    {index + 1}. {event.name} — {event.location} — {formatDate(event.event_date)}
-                </p>
+              <div
+                key={event.id}
+                className="rounded-xl border border-green-100 bg-green-50 p-4"
+              >
+                <div className="font-medium text-slate-900">
+                  {index + 1}. {event.name}
+                </div>
+                <div className="mt-1 text-sm text-slate-600">
+                  {event.location} · {formatDate(event.event_date)}
+                </div>
+              </div>
             ))}
-            </div>
+          </div>
         )}
-        </div>
-      <div
-          style={{
-            marginTop: "1rem",
-            marginBottom: "1rem",
-            display: "flex",
-            gap: "1rem",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "center"
-          }}
-        >
-      <Link to={`/landing/${campaign.slug}`}>View Landing Page</Link>
-        </div>
-        <button
+
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            to={`/landing/${campaign.slug}`}
+            className="inline-flex rounded-xl bg-green-100 px-4 py-2 font-medium text-green-900 transition hover:bg-green-200"
+          >
+            View Landing Page
+          </Link>
+
+          <button
             type="button"
             onClick={openModal}
-            style={{
-              padding: "0.5rem 0.9rem",
-              cursor: "pointer",
-            }}
+            className="rounded-xl bg-green-700 px-4 py-2 font-medium text-white transition hover:bg-green-800"
           >
             Send Email
           </button>
         </div>
+      </article>
+
       {showSendModal && (
         <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4"
           onClick={closeModal}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0, 0, 0, 0.45)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1rem",
-            zIndex: 1000,
-          }}
         >
           <div
+            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              background: "#fff",
-              width: "100%",
-              maxWidth: "520px",
-              borderRadius: "12px",
-              padding: "1.5rem",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-            }}
           >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              <h3 style={{ margin: 0 }}>Send Campaign Email</h3>
+            <div className="mb-4 flex items-center justify-between">
+              <h3 className="text-xl font-semibold text-slate-900">
+                Send Campaign Email
+              </h3>
               <button
+                className="text-2xl leading-none text-slate-500 hover:text-slate-800"
                 type="button"
                 onClick={closeModal}
-                style={{
-                  border: "none",
-                  background: "transparent",
-                  fontSize: "1.2rem",
-                  cursor: "pointer",
-                }}
               >
                 ×
               </button>
             </div>
+
             <input
               type="email"
               placeholder="Recipient email"
               value={recipientEmail}
               onChange={(e) => setRecipientEmail(e.target.value)}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                marginBottom: "0.75rem",
-                boxSizing: "border-box",
-              }}
+              className="mb-3 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none ring-0 placeholder:text-slate-400 focus:border-green-500"
             />
 
             <button
               type="button"
               onClick={handleSendEmail}
               disabled={sending || !recipientEmail.trim()}
-              style={{
-                padding: "0.7rem 1rem",
-                cursor: sending ? "default" : "pointer",
-                width: "100%",
-              }}
+              className="w-full rounded-xl bg-green-700 px-4 py-3 font-medium text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {sending ? "Sending..." : "Send"}
             </button>
-        {sendMessage && <p style={{ marginTop: "0.75rem" }}>{sendMessage}</p>}
-        {sendError && <p style={{ marginTop: "0.75rem" }}>Error: {sendError}</p>}
-        {previewUrl && (
-          <p style={{ marginTop: "0.75rem" }}>
-            <a href={previewUrl} target="_blank" rel="noreferrer">
-              Open Ethereal Preview
-            </a>
-          </p>
-        )}
+
+            {sendMessage && (
+              <p className="mt-3 text-sm text-green-700">{sendMessage}</p>
+            )}
+            {sendError && (
+              <p className="mt-3 text-sm text-red-600">Error: {sendError}</p>
+            )}
+            {previewUrl && (
+              <p className="mt-3 text-sm">
+                <a
+                  href={previewUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-green-800 underline"
+                >
+                  Open Ethereal Preview
+                </a>
+              </p>
+            )}
+          </div>
         </div>
-    </div>
-    )}
+      )}
     </>
   );
 }
