@@ -49,7 +49,7 @@ A full-stack web application that supports:
 
 - POST http://localhost:4000/api/landing/:slug/submit
 
-  Saves a landing page form submission
+  Submit lead information from a campaign landing page
 
   Request body:
 
@@ -104,7 +104,7 @@ npm install
 npm run dev
 
 
-The backend runs on: **http://localhost:4000**
+The backend runs on: http://localhost:4000
 
 ### Run the frontend
 Open another terminal and run:
@@ -116,4 +116,4 @@ npm install
 npm run dev
 
 
-The frontend runs on: **http://localhost:5173**
+The frontend runs on: http://localhost:5173
