@@ -68,6 +68,7 @@ A full-stack web application that supports:
 
   Returns all submissions with campaign name included
 - GET http://localhost:4000/api/submissions/export
+  
   Downloads submissions as CSV
 
 ### Frontend Pages
@@ -78,13 +79,13 @@ A full-stack web application that supports:
 - Submissions dashboard: http://localhost:5173/submissions
 
 ### Database
-This project uses sqlite for database. On application startup, the database file is created locally if it does not exist. Campaigns and events are seeded from seed_campaigns.json. Seeding only runs when the campaigns table is empty to avoid duplicates.
+This project uses SQLite for database. On application startup, the database file is created locally if it does not exist. Campaigns and events are seeded from seed_campaigns.json. Seeding only runs when the campaigns table is empty to avoid duplicates.
 
 
 ### Email Service
 Campaign emails are sent using Nodemailer with Ethereal Email as the test SMTP service.
 
-When an email is sent, the backend returns a preview URL and the frontend displays a link to open the Ethereal preview. The previe url can also be found in the terminal running backend. Click the CTA button in the email and it will open the landing page for that campaign.
+When an email is sent, the frontend displays a link to open the Ethereal preview. The previe url can also be found in the terminal running backend. Click the CTA button in the email and it will open the landing page for that campaign.
 
 ## How to Run Locally
 ### Clone the repository
