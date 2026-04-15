@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiFetch } from "../services/api";
 import type { Campaign } from "../types/models";
+import type { ChangeEvent, SubmitEvent} from "react";
+
 
 interface LandingFormData {
   firstName: string;
@@ -21,15 +23,17 @@ export default function LandingPage() {
     email: "",
     company: "",
   });
+
   const [submitMessage, setSubmitMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
   useEffect(() => {
     async function loadCampaign() {
       try {
         const data = await apiFetch<Campaign[]>("/campaigns");
+        //fetch campaign and match by slug
         const matchedCampaign = data.find((item) => item.slug === slug);
-
         if (!matchedCampaign) {
           setPageError("Campaign not found");
         } else {
@@ -49,7 +53,7 @@ export default function LandingPage() {
   }, [slug]);
 
   function handleChange(
-    event: React.ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>
   ) {
     const { name, value } = event.target;
     setFormData((prev) => ({
@@ -58,7 +62,7 @@ export default function LandingPage() {
     }));
   }
 
-  async function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!slug) {
       setSubmitError("Missing campaign slug");

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import {db} from "./connection";
-import {SeedData, Campaign, Event} from "../models/models";
+import {SeedData, Campaign, Event} from "../types/models";
 
 export function createTables(): void {
   db.exec(`
@@ -39,6 +39,7 @@ export function createTables(): void {
     );
   `);
 }
+//seed the database only when campaigns table is empty
 export function seedDatabase(): void {
   const campaignCount = db.prepare("SELECT COUNT(*) as count FROM campaigns").get() as {
     count: number;
@@ -64,6 +65,7 @@ export function seedDatabase(): void {
       @id, @campaign_id, @name, @event_date, @location, @capacity, @description
     )
   `);
+
   const transaction = db.transaction((campaigns: Campaign[], events: Event[]) => {
     for (const campaign of campaigns) {
       insertCampaign.run(campaign);
@@ -72,6 +74,7 @@ export function seedDatabase(): void {
       insertEvent.run(event);
     }
   });
+
   transaction(seedData.campaigns, seedData.events);
   console.log("Database seeded successfully.");
 }

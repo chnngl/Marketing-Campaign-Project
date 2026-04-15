@@ -29,12 +29,16 @@ export default function SubmissionPage() {
     loadSubmissions();
   }, []);
 
+  //added pagination for submissions page
   const totalPages = Math.max(1, Math.ceil(submissions.length / ITEMS_PER_PAGE));
+
+  //show submissions belong to current page
   const paginatedSubmissions = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     return submissions.slice(startIndex, endIndex);
   }, [submissions, currentPage]);
+
   function goToPreviousPage() {
     setCurrentPage((prev) => Math.max(1, prev - 1));
   }

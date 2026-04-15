@@ -6,7 +6,6 @@ async function getTransporter(): Promise<nodemailer.Transporter> {
   if (!transporterPromise) {
     transporterPromise = (async () => {
       const testAccount = await nodemailer.createTestAccount();
-
       const transporter = nodemailer.createTransport({
         host: testAccount.smtp.host,
         port: testAccount.smtp.port,
@@ -16,11 +15,9 @@ async function getTransporter(): Promise<nodemailer.Transporter> {
           pass: testAccount.pass,
         },
       });
-
       return transporter;
     })();
   }
-
   return transporterPromise;
 }
 
@@ -73,7 +70,6 @@ export async function sendCampaignEmail({
   });
 
   const previewUrl = nodemailer.getTestMessageUrl(info);
-
   console.log("Message sent:", info.messageId);
   console.log("Preview URL:", previewUrl);
 

@@ -6,6 +6,8 @@ import { sendCampaignEmail } from "../services/emailService";
 import { SendCampaignEmailRequest } from "../types/models";
 
 const router = Router();
+
+//return campaigns with their associated events
 router.get("/", (_req: Request, res: Response) => {
     const campaigns = db.prepare("SELECT * FROM campaigns ORDER BY id").all() as Campaign[];
     const events = db.prepare("SELECT * FROM events ORDER BY event_date").all() as Event[];
@@ -23,7 +25,7 @@ router.post("/:id/send", async (req: Request, res: Response) => {
     return res.status(400).json({ message: "Invalid campaign id" });
   }
   if (!isNonEmptyString(body.recipientEmail)) {
-    return res.status(400).json({ message: "recipientEmail is required" });
+    return res.status(400).json({ message: "Recipient email is required" });
   }
   if (!isValidEmail(body.recipientEmail)) {
     return res.status(400).json({ message: "Invalid recipient email" });

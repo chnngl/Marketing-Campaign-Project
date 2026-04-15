@@ -11,9 +11,11 @@ router.post("/:slug/submit", (req: Request, res: Response) => {
   const campaign = db
     .prepare("SELECT * FROM campaigns WHERE slug = ?")
     .get(slug) as Campaign | undefined;
+
   if (!campaign) {
     return res.status(404).json({ message: "Campaign not found" });
   }
+  // validate form data server-side
   if (
     !isNonEmptyString(body.firstName) ||
     !isNonEmptyString(body.lastName) ||
@@ -25,6 +27,7 @@ router.post("/:slug/submit", (req: Request, res: Response) => {
   if (!isValidEmail(body.email)) {
     return res.status(400).json({ message: "Invalid email address" });
   }
+
   const submittedAt = new Date().toISOString();
   const insertSubmission = db.prepare(`
     INSERT INTO submissions (
@@ -36,6 +39,7 @@ router.post("/:slug/submit", (req: Request, res: Response) => {
       submitted_at
     ) VALUES (?, ?, ?, ?, ?, ?)
   `);
+
   const result = insertSubmission.run(
     campaign.id,
     body.firstName.trim(),
@@ -44,6 +48,7 @@ router.post("/:slug/submit", (req: Request, res: Response) => {
     body.company.trim(),
     submittedAt
   );
+
   return res.status(201).json({
     message: "Submission saved successfully",
     submissionId: result.lastInsertRowid,

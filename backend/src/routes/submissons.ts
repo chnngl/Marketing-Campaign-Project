@@ -4,6 +4,8 @@ import { SubmissionWithCampaign } from "../types/models";
 import { toCsv } from "../utils/csv";
 
 const router = Router();
+
+//join submissions with campaigns to include campaign_name
 router.get("/", (_req: Request, res: Response) => {
   const submissions = db.prepare(`
     SELECT
@@ -21,6 +23,7 @@ router.get("/", (_req: Request, res: Response) => {
   `).all() as SubmissionWithCampaign[];
   return res.json(submissions);
 });
+
 router.get("/export", (_req: Request, res: Response) => {
   const submissions = db.prepare(`
     SELECT

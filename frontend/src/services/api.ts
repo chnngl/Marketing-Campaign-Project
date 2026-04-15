@@ -1,7 +1,7 @@
 const API_BASE_URL = "http://localhost:4000/api";
 
 export async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
-    console.log("Fetching:", `${API_BASE_URL}${path}`);
+    //console.log("Fetching:", `${API_BASE_URL}${path}`);
     const response = await fetch(`${API_BASE_URL}${path}`, options);
     if (!response.ok) {
     let message = "Request failed";
@@ -11,7 +11,7 @@ export async function apiFetch<T>(path: string, options?: RequestInit): Promise<
         message = errorData.message;
       }
     } catch {
-      // ignore JSON parsing failure
+      //ignore JSON parsing failure
     }
     throw new Error(message);
   }
