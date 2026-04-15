@@ -64,8 +64,7 @@ export default function SubmissionPage() {
         <h1 className="text-5xl font-semibold tracking-tight text-green-950">
           Submissions
         </h1>
-        <button
-          className="rounded-xl bg-green-700 px-4 py-2 font-medium text-white transition hover:bg-green-800"
+        <button className="rounded-xl bg-green-700 px-4 py-2 font-medium text-white transition hover:bg-green-800"
           onClick={handleDownloadCsv}
         >
           Download CSV

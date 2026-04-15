@@ -9,15 +9,15 @@ export default function CampaignListPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     useEffect(() => {
-    console.log("useEffect started");
+    //console.log("useEffect started");
     async function loadCampaigns() {
-        console.log("loadCampaigns called");
+      //console.log("loadCampaigns called");
       try {
         const data = await apiFetch<Campaign[]>("/campaigns");
-        console.log("campaign data:", data);
+        //console.log("campaign data:", data);
         setCampaigns(data);
       } catch (err) {
-        console.error("loadCampaigns error:", err);
+        //console.error("loadCampaigns error:", err);
         if (err instanceof Error) {
           setError(err.message);
         } else {

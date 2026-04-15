@@ -94,10 +94,8 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
         ) : (
           <div className="mb-6 space-y-3">
             {campaign.events.map((event, index) => (
-              <div
-                key={event.id}
-                className="rounded-xl border border-green-100 bg-green-50 p-4"
-              >
+              <div key={event.id}
+                className="rounded-xl border border-green-100 bg-green-50 p-4">
                 <div className="font-medium text-slate-900">
                   {index + 1}. {event.name}
                 </div>
@@ -110,59 +108,36 @@ export default function CampaignCard({ campaign }: CampaignCardProps) {
         )}
 
         <div className="flex flex-wrap items-center gap-3">
-          <Link
-            to={`/landing/${campaign.slug}`}
-            className="inline-flex rounded-xl bg-green-100 px-4 py-2 font-medium text-green-900 transition hover:bg-green-200"
-          >
+          <Link to={`/landing/${campaign.slug}`} className="inline-flex rounded-xl bg-green-100 px-4 py-2 font-medium text-green-900 transition hover:bg-green-200">
             View Landing Page
           </Link>
 
-          <button
-            type="button"
-            onClick={openModal}
-            className="rounded-xl bg-green-700 px-4 py-2 font-medium text-white transition hover:bg-green-800"
-          >
+          <button type="button" onClick={openModal} className="rounded-xl bg-green-700 px-4 py-2 font-medium text-white transition hover:bg-green-800">
             Send Email
           </button>
         </div>
       </article>
 
       {showSendModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4"
-          onClick={closeModal}
-        >
-          <div
-            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4" onClick={closeModal}>
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-xl font-semibold text-slate-900">
                 Send Campaign Email
               </h3>
-              <button
-                className="text-2xl leading-none text-slate-500 hover:text-slate-800"
-                type="button"
-                onClick={closeModal}
+              <button className="text-2xl leading-none text-slate-500 hover:text-slate-800" type="button" onClick={closeModal}
               >
                 ×
               </button>
             </div>
 
-            <input
-              type="email"
-              placeholder="Recipient email"
-              value={recipientEmail}
-              onChange={(e) => setRecipientEmail(e.target.value)}
-              className="mb-3 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none ring-0 placeholder:text-slate-400 focus:border-green-500"
+            <input type="email" placeholder="Recipient email" value={recipientEmail}
+            onChange={(e) => setRecipientEmail(e.target.value)}
+            className="mb-3 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none ring-0 placeholder:text-slate-400 focus:border-green-500"
             />
 
-            <button
-              type="button"
-              onClick={handleSendEmail}
-              disabled={sending || !recipientEmail.trim()}
-              className="w-full rounded-xl bg-green-700 px-4 py-3 font-medium text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-50"
-            >
+            <button type="button" onClick={handleSendEmail} disabled={sending || !recipientEmail.trim()}
+              className="w-full rounded-xl bg-green-700 px-4 py-3 font-medium text-white transition hover:bg-green-800 disabled:cursor-not-allowed disabled:opacity-50">
               {sending ? "Sending..." : "Send"}
             </button>
 
