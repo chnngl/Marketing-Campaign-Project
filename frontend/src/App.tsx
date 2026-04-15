@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-green-50 text-slate-800">
-        <header className="border-b border-green-100 bg-gradient-to-r from-green-800 to-emerald-200">
+        <header className="border-b border-green-100 bg-gradient-to-r from-green-900 to-emerald-100">
           <div className="mx-auto flex max-w-6xl justify-end gap-6 px-6 py-4">
             <Link
               to="/"
